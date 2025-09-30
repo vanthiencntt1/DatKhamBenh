@@ -1,0 +1,247 @@
+<meta charset="UTF-8" />
+<div class="container">
+  <h2>Đặt Khám</h2>
+  <form
+    id="bookingForm"
+    action="https://script.google.com/macros/s/AKfycbwo3EMW-rXf_ECCl1xfWaNGluErveiLzFXC_37a7g9HDEjKOPFCjv_ftmKJrkkswDQFLA/exec"
+    method="POST"
+    target="hidden_iframe"
+    onsubmit="return validateForm()"
+    novalidate
+  >
+    <label for="name">Họ tên *</label>
+    <input type="text" id="name" name="name" required />
+    <div id="nameError" class="error"></div>
+
+    <label for="email">Email *</label>
+    <input type="email" id="email" name="email" required />
+    <div id="emailError" class="error"></div>
+
+    <label for="phone">SĐT *</label>
+    <input type="tel" id="phone" name="phone" required pattern="[0-9]{9,12}" />
+    <div id="phoneError" class="error"></div>
+
+    <label for="time">Thời gian *</label>
+    <input type="datetime-local" id="time" name="time" required />
+    <div id="timeError" class="error"></div>
+
+    <label for="service">Dịch vụ *</label>
+    <select id="service" name="service" required>
+      <option value="" disabled selected>-- Chọn dịch vụ --</option>
+      <option>Lấy máu - 150.000đ</option>
+      <option>Tiêm thuốc - 150.000đ + phí mua thuốc</option>
+      <option>Truyền nước - 300.000đ + phí mua thuốc</option>
+      <option>Truyền đạm - 400.000đ + phí mua thuốc</option>
+      <option>Đặt ống ăn - 300.000đ + phí mua ống</option>
+      <option>Đặt ống hút - 300.000đ + phí mua đồ</option>
+      <option>Thay băng (vết nhỏ, vết mổ) - 250.000đ</option>
+      <option>Thay băng (vết thương nhiễm, loét) - 300.000đ</option>
+      <option>Xử rửa nước tiểu - 250.000đ</option>
+      <option>Hút đàm tại nhà - 250.000đ</option>
+    </select>
+    <div id="serviceError" class="error"></div>
+
+    <label for="note">Nội dung khám</label>
+    <textarea id="note" name="note"></textarea>
+
+    <button type="submit">Xác nhận đặt khám</button>
+  </form>
+</div>
+
+<!-- iframe ẩn để nhận phản hồi -->
+<iframe name="hidden_iframe" id="hidden_iframe" style="display: none"></iframe>
+
+<script>
+  let submitted = false;
+  function validateForm() {
+    let valid = true;
+
+    // kiểm tra tên
+    const name = document.getElementById("name").value.trim();
+    if (!/^[a-zA-ZÀ-ỹ\s]+$/u.test(name)) {
+      document.getElementById("nameError").textContent = "Tên không hợp lệ!";
+      valid = false;
+    } else document.getElementById("nameError").textContent = "";
+
+    // email
+    const email = document.getElementById("email").value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      document.getElementById("emailError").textContent = "Email không hợp lệ!";
+      valid = false;
+    } else document.getElementById("emailError").textContent = "";
+
+    // sđt
+    const phone = document.getElementById("phone").value.trim();
+    if (!/^[0-9]{9,12}$/.test(phone)) {
+      document.getElementById("phoneError").textContent =
+        "SĐT phải từ 9–12 số!";
+      valid = false;
+    } else document.getElementById("phoneError").textContent = "";
+
+    // thời gian
+    const timeInput = document.getElementById("time").value;
+    if (!timeInput) {
+      document.getElementById("timeError").textContent =
+        "Vui lòng chọn thời gian!";
+      valid = false;
+    } else if (new Date(timeInput) <= new Date()) {
+      document.getElementById("timeError").textContent =
+        "Phải chọn thời gian trong tương lai!";
+      valid = false;
+    } else document.getElementById("timeError").textContent = "";
+
+    // dịch vụ
+    const service = document.getElementById("service").value;
+    if (!service) {
+      document.getElementById("serviceError").textContent =
+        "Vui lòng chọn dịch vụ!";
+      valid = false;
+    } else document.getElementById("serviceError").textContent = "";
+
+    if (valid) {
+      submitted = true; // chỉ bật cờ khi hợp lệ
+    }
+    return valid; // nếu false thì form không submit
+  }
+
+  // khi iframe load => coi như submit thành công
+  document.getElementById("hidden_iframe").addEventListener("load", () => {
+    if (submitted) {
+      alert("✅ Đặt khám thành công! Vui lòng kiểm tra email.");
+      document.getElementById("bookingForm").reset();
+      submitted = false; // reset lại cờ để tránh alert khi reload trang
+      window.location.href = "/";
+    }
+  });
+</script>
+
+<style>
+  /* CSS fix giao diện cho form đặt khám */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f4f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+  }
+
+  .container {
+    max-width: 480px;
+    width: 100%;
+    margin: 40px auto;
+    background-color: #fff;
+    padding: 30px 35px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+  }
+
+  h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: #2c3e50;
+  }
+
+  form label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #34495e;
+  }
+
+  form input[type="text"],
+  form input[type="email"],
+  form input[type="tel"],
+  form input[type="datetime-local"],
+  form select,
+  form textarea {
+    width: 100%;
+    padding: 10px 14px;
+    margin-bottom: 14px;
+    border: 1.8px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+    font-family: inherit;
+    box-sizing: border-box;
+    resize: vertical;
+  }
+
+  form input[type="text"]:focus,
+  form input[type="email"]:focus,
+  form input[type="tel"]:focus,
+  form input[type="datetime-local"]:focus,
+  form select:focus,
+  form textarea:focus {
+    border-color: #2980b9;
+    outline: none;
+    box-shadow: 0 0 8px rgba(41, 128, 185, 0.3);
+  }
+
+  form textarea {
+    min-height: 80px;
+  }
+
+  .error {
+    color: #e74c3c;
+    font-size: 0.85rem;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    min-height: 18px;
+  }
+
+  button[type="submit"] {
+    width: 100%;
+    padding: 14px;
+    background-color: #2980b9;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+  }
+
+  button[type="submit"]:hover {
+    background-color: #1c5980;
+  }
+
+  /* Responsive */
+  @media (max-width: 720px) {
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: auto;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      padding: 25px 20px;
+      max-width: 100%;
+      width: 100%;
+      max-height: 100%;
+      height: 100%;
+      margin: 40px auto;
+      background-color: #fff;
+      padding: 30px 35px;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      color: #333;
+    }
+  }
+</style>
