@@ -15,13 +15,218 @@
     <link href="css/bootstrap-icons.css" rel="stylesheet" />
 
     <link href="css/templatemo-kind-heart-charity.css" rel="stylesheet" />
-    <!--
+       <style>
+      :root {
+        --max-width: 1200px;
+        --card-border: #e6e6e6;
+        --accent: #2b8a3e;
+        --danger: #e74c3c;
+        --muted: #9b9b9b;
+        --bg: #fafafa;
+        --price: #2e2e2e;
+        --old: #bdbdbd;
+      }
 
-TemplateMo 581 Kind Heart Charity
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Arial, sans-serif;
+        background: var(--bg);
+        color: #222;
+        -webkit-font-smoothing: antialiased;
+      }
 
-https://templatemo.com/tm-581-kind-heart-charity
+      .container {
+        max-width: var(--max-width);
+        margin: 30px auto;
+        padding: 0 18px;
+      }
 
--->
+      header {
+        text-align: center;
+        margin-bottom: 26px;
+      }
+      header h1 {
+        margin: 0;
+        font-size: 28px;
+        letter-spacing: 1px;
+      }
+      header p {
+        margin: 8px 0 0;
+        color: var(--muted);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 22px;
+      }
+
+      /* responsive */
+      @media (max-width: 1000px) {
+        .grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      @media (max-width: 800px) {
+        .grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (max-width: 480px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        header h1 {
+          font-size: 22px;
+        }
+      }
+
+      .card {
+        background: #fff;
+        border: 1px solid var(--card-border);
+        border-radius: 4px;
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02);
+        display: flex;
+        flex-direction: column;
+        min-height: 260px;
+      }
+
+      /* top badges */
+      .badge-left,
+      .badge-right {
+        position: absolute;
+        top: 12px;
+        padding: 6px 8px;
+        font-size: 13px;
+        font-weight: 700;
+        border-radius: 3px;
+        color: #fff;
+        z-index: 3;
+        box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
+      }
+      .badge-left {
+        left: 12px;
+        background: var(--danger);
+      }
+      .badge-right {
+        right: 12px;
+        background: var(--accent);
+        color: #fff;
+      }
+
+      .badge-left.out {
+        background: #444;
+      } /* Hết hàng style */
+      .badge-left.discount {
+        background: var(--danger);
+      }
+
+      .image {
+        background: linear-gradient(180deg, #fff, #fcfcfc);
+        border-bottom: 1px solid var(--card-border);
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 160px;
+      }
+
+      /* placeholder image */
+      .service-image {
+  
+        border-radius: 6px;
+        background: linear-gradient(135deg, #f7f7f7, #ffffff);
+        border: 1px solid #eee;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        color: var(--muted);
+        font-size: 14px;
+        text-align: center;
+        padding: 8px;
+      }
+
+      .card-body {
+        padding: 14px 18px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .title {
+        font-size: 16px;
+        margin: 6px 0 8px;
+        text-align: center;
+        color: #222;
+      }
+
+      .meta {
+        text-align: center;
+        color: var(--muted);
+        font-size: 13px;
+        margin-bottom: 8px;
+      }
+
+      .price-row {
+        display: flex;
+        justify-content: center;
+        align-items: baseline;
+        gap: 10px;
+        margin-bottom: 6px;
+        flex-wrap: wrap;
+      }
+
+      .old-price {
+        color: var(--old);
+        text-decoration: line-through;
+        font-size: 14px;
+      }
+
+      .price {
+        color: var(--price);
+        font-size: 18px;
+        font-weight: 700;
+      }
+
+      .note {
+        text-align: center;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      /* small stars area */
+      .stars {
+        text-align: center;
+        color: #cfcfcf;
+        margin-top: 4px;
+        letter-spacing: 6px;
+      }
+
+      /* optional: highlight first row bigger */
+      .hero {
+        grid-column: span 4;
+        display: flex;
+        gap: 22px;
+      }
+      @media (max-width: 1000px) {
+        .hero {
+          grid-column: auto;
+          flex-direction: column;
+        }
+      }
+
+      /* small utilities for price formatting */
+      .plus-note {
+        color: var(--muted);
+        font-size: 13px;
+        display: block;
+        margin-top: 4px;
+      }
+    </style>
   </head>
 
   <body id="section_1">
@@ -331,6 +536,29 @@ https://templatemo.com/tm-581-kind-heart-charity
         </div>
       </section>
 
+      <section class="section-padding">
+  <h1 style="text-align: center;">DỊCH VỤ TIÊU BIỂU</h1>
+  <div class="grid" id="serviceGrid" >
+    <style>
+.service-image {
+  width: 100%;
+  height: 200px; /* cố định chiều cao */
+  overflow: hidden;
+}
+
+.service-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+</style>
+  </div>
+  <script src="js/script.js"></script>
+</section>
+
+
+   
       <section class="section-padding section-bg" id="section_2">
         <div class="container">
           <div class="row">
@@ -490,102 +718,6 @@ https://templatemo.com/tm-581-kind-heart-charity
         </div>
       </section>
 
-      <section class="section-padding" id="section_3">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12 col-12 text-center mb-4">
-        <h2>Hoạt động y tế</h2>
-      </div>
-
-      <!-- Hoạt động 1 -->
-      <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-0">
-        <div class="custom-block-wrap">
-          <img
-            src="images/causes/noi-soi.jpg"
-            class="custom-block-image img-fluid"
-            alt="Khám tổng quát"
-            style="width: 260px; height: 190px;"
-          />
-
-          <div class="custom-block">
-            <div class="custom-block-body">
-              <h5 class="mb-3">Khám tổng quát</h5>
-              <p>
-                Kiểm tra sức khỏe định kỳ, phát hiện sớm bệnh lý và tư vấn phòng ngừa.
-              </p>
-              <div class="progress mt-4">
-                <div class="progress-bar w-75" role="progressbar"></div>
-              </div>
-              <div class="d-flex align-items-center my-2">
-                <p class="mb-0"><strong>Đã đăng ký:</strong> 75</p>
-                <p class="ms-auto mb-0"><strong>Chỉ tiêu:</strong> 100</p>
-              </div>
-            </div>
-            <a href="#booking" class="custom-btn btn">Đặt lịch ngay</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Hoạt động 2 -->
-      <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-0">
-        <div class="custom-block-wrap">
-          <img
-            src="images/causes/noi-soi2.jpg"
-            class="custom-block-image img-fluid"
-            alt="Khám tim mạch"
-            style="width: 260px; height: 190px;"
-          />
-
-          <div class="custom-block">
-            <div class="custom-block-body">
-              <h5 class="mb-3">Khám tim mạch</h5>
-              <p>
-                Thăm khám tim mạch chuyên sâu với bác sĩ giàu kinh nghiệm.
-              </p>
-              <div class="progress mt-4">
-                <div class="progress-bar w-50" role="progressbar"></div>
-              </div>
-              <div class="d-flex align-items-center my-2">
-                <p class="mb-0"><strong>Đã đăng ký:</strong> 50</p>
-                <p class="ms-auto mb-0"><strong>Chỉ tiêu:</strong> 100</p>
-              </div>
-            </div>
-            <a href="#booking" class="custom-btn btn">Đặt lịch ngay</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Hoạt động 3 -->
-      <div class="col-lg-4 col-md-6 col-12">
-        <div class="custom-block-wrap">
-          <img
-            src="images/causes/noi-soi3.jpg"
-            class="custom-block-image img-fluid"
-            alt="Khám nội soi"
-              style="width: 260px; height: 190px;"
-          />
-
-          <div class="custom-block">
-            <div class="custom-block-body">
-              <h5 class="mb-3">Khám nội soi</h5>
-              <p>
-                Nội soi dạ dày, đại tràng bằng thiết bị hiện đại, an toàn và chính xác.
-              </p>
-              <div class="progress mt-4">
-                <div class="progress-bar w-100" role="progressbar"></div>
-              </div>
-              <div class="d-flex align-items-center my-2">
-                <p class="mb-0"><strong>Đã đăng ký:</strong> 100</p>
-                <p class="ms-auto mb-0"><strong>Chỉ tiêu:</strong> 100</p>
-              </div>
-            </div>
-            <a href="#booking" class="custom-btn btn">Đặt lịch ngay</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 
 

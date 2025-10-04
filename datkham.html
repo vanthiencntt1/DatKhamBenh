@@ -18,7 +18,14 @@
     <div id="emailError" class="error"></div>
 
     <label for="phone">SĐT *</label>
-    <input type="tel" id="phone" name="phone" required pattern="[0-9]{9,12}" />
+    <input
+      type="tel"
+      id="phone"
+      name="phone"
+      required
+      pattern="[0-9]{9,12}"
+      inputmode="tel"
+    />
     <div id="phoneError" class="error"></div>
 
     <label for="time">Thời gian *</label>
@@ -42,7 +49,7 @@
     <div id="serviceError" class="error"></div>
 
     <label for="note">Nội dung khám</label>
-    <textarea id="note" name="note"></textarea>
+    <textarea id="note" name="note" rows="4"></textarea>
 
     <button type="submit">Xác nhận đặt khám</button>
   </form>
@@ -56,27 +63,42 @@
   function validateForm() {
     let valid = true;
 
+    // Clear previous errors
+    document.querySelectorAll(".error").forEach((el) => (el.textContent = ""));
+
     // kiểm tra tên
     const name = document.getElementById("name").value.trim();
-    if (!/^[a-zA-ZÀ-ỹ\s]+$/u.test(name)) {
+    if (!name) {
+      document.getElementById("nameError").textContent =
+        "Vui lòng nhập họ tên!";
+      valid = false;
+    } else if (!/^[a-zA-ZÀ-ỹ\s]+$/u.test(name)) {
       document.getElementById("nameError").textContent = "Tên không hợp lệ!";
       valid = false;
-    } else document.getElementById("nameError").textContent = "";
+    }
 
     // email
     const email = document.getElementById("email").value.trim();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (!email) {
+      document.getElementById("emailError").textContent =
+        "Vui lòng nhập email!";
+      valid = false;
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       document.getElementById("emailError").textContent = "Email không hợp lệ!";
       valid = false;
-    } else document.getElementById("emailError").textContent = "";
+    }
 
     // sđt
     const phone = document.getElementById("phone").value.trim();
-    if (!/^[0-9]{9,12}$/.test(phone)) {
+    if (!phone) {
+      document.getElementById("phoneError").textContent =
+        "Vui lòng nhập số điện thoại!";
+      valid = false;
+    } else if (!/^[0-9]{9,12}$/.test(phone)) {
       document.getElementById("phoneError").textContent =
         "SĐT phải từ 9–12 số!";
       valid = false;
-    } else document.getElementById("phoneError").textContent = "";
+    }
 
     // thời gian
     const timeInput = document.getElementById("time").value;
@@ -88,7 +110,7 @@
       document.getElementById("timeError").textContent =
         "Phải chọn thời gian trong tương lai!";
       valid = false;
-    } else document.getElementById("timeError").textContent = "";
+    }
 
     // dịch vụ
     const service = document.getElementById("service").value;
@@ -96,7 +118,7 @@
       document.getElementById("serviceError").textContent =
         "Vui lòng chọn dịch vụ!";
       valid = false;
-    } else document.getElementById("serviceError").textContent = "";
+    }
 
     if (valid) {
       submitted = true; // chỉ bật cờ khi hợp lệ
@@ -110,51 +132,52 @@
       alert("✅ Đặt khám thành công! Vui lòng kiểm tra email.");
       document.getElementById("bookingForm").reset();
       submitted = false; // reset lại cờ để tránh alert khi reload trang
-      window.location.href = "/";
+      window.location.href = "/DatKhamBenh/";
     }
   });
 </script>
 
 <style>
-  /* CSS fix giao diện cho form đặt khám */
-  * {
+  /* Reset and base styles */
+  *,
+  *::before,
+  *::after {
     box-sizing: border-box;
   }
+
   body {
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     background: #f0f4f8;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
     margin: 0;
     padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
   }
 
   .container {
+    background: #fff;
+    border-radius: 12px;
+    padding: 30px 35px;
     max-width: 480px;
     width: 100%;
-    margin: 40px auto;
-    background-color: #fff;
-    padding: 30px 35px;
-    border-radius: 12px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     color: #333;
   }
 
   h2 {
     text-align: center;
-    margin-bottom: 25px;
+    margin-bottom: 30px;
     font-weight: 700;
-    font-size: 1.8rem;
+    font-size: 2rem;
     color: #2c3e50;
   }
 
   form label {
     display: block;
-    margin-bottom: 6px;
     font-weight: 600;
+    margin-bottom: 6px;
     color: #34495e;
   }
 
@@ -165,14 +188,13 @@
   form select,
   form textarea {
     width: 100%;
-    padding: 10px 14px;
-    margin-bottom: 14px;
+    padding: 12px 14px;
+    margin-bottom: 16px;
     border: 1.8px solid #ccc;
     border-radius: 8px;
     font-size: 1rem;
-    transition: border-color 0.3s ease;
     font-family: inherit;
-    box-sizing: border-box;
+    transition: border-color 0.3s ease;
     resize: vertical;
   }
 
@@ -188,60 +210,108 @@
   }
 
   form textarea {
-    min-height: 80px;
+    min-height: 100px;
   }
 
   .error {
     color: #e74c3c;
     font-size: 0.85rem;
-    margin-top: -10px;
-    margin-bottom: 10px;
+    margin-top: -12px;
+    margin-bottom: 12px;
     min-height: 18px;
   }
 
   button[type="submit"] {
     width: 100%;
-    padding: 14px;
+    padding: 16px;
     background-color: #2980b9;
     border: none;
     border-radius: 10px;
     color: white;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-weight: 700;
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-top: 10px;
+    min-height: 48px; /* Touch-friendly */
   }
 
-  button[type="submit"]:hover {
+  button[type="submit"]:hover,
+  button[type="submit"]:focus,
+  button[type="submit"]:active {
     background-color: #1c5980;
   }
 
-  /* Responsive */
-  @media (max-width: 720px) {
+  /* Responsive for tablets and smaller screens */
+  @media (max-width: 768px) {
     body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: #f0f4f8;
-      display: flex;
-      justify-content: center;
+      padding: 15px;
       align-items: center;
-      min-height: auto;
-      margin: 0;
-      padding: 20px;
+      min-height: 100vh;
     }
     .container {
-      padding: 25px 20px;
       max-width: 100%;
-      width: 100%;
-      max-height: 100%;
-      height: 100%;
-      margin: 40px auto;
-      background-color: #fff;
-      padding: 30px 35px;
-      border-radius: 12px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      color: #333;
+      padding: 25px 20px;
+      margin: 0 auto;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    }
+    h2 {
+      font-size: 1.6rem;
+      margin-bottom: 25px;
+    }
+    form input[type="text"],
+    form input[type="email"],
+    form input[type="tel"],
+    form input[type="datetime-local"],
+    form select,
+    form textarea {
+      padding: 14px 12px;
+      font-size: 16px; /* Prevent iOS zoom */
+    }
+    button[type="submit"] {
+      padding: 16px;
+      font-size: 1.1rem;
+    }
+  }
+
+  /* Responsive for small mobiles */
+  @media (max-width: 480px) {
+    body {
+      padding: 10px;
+    }
+    .container {
+      padding: 20px 15px;
+      border-radius: 10px;
+      max-width: 100%;
+    }
+    h2 {
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+    }
+    form input[type="text"],
+    form input[type="email"],
+    form input[type="tel"],
+    form input[type="datetime-local"],
+    form select,
+    form textarea {
+      padding: 12px 10px;
+    }
+    button[type="submit"] {
+      font-size: 1rem;
+      padding: 14px;
+    }
+  }
+
+  /* Landscape mode on small screens */
+  @media (max-height: 500px) and (orientation: landscape) {
+    .container {
+      padding: 20px;
+      max-width: 100%;
+    }
+    form input,
+    form select,
+    form textarea {
+      padding: 10px;
     }
   }
 </style>

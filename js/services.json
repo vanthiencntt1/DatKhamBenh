@@ -1,0 +1,58 @@
+[
+  {
+    "id": 1,
+    "title": "Lấy máu",
+    "price": "150.000 đ",
+    "note": "Không phát sinh chi phí khác",
+    "image": "images/dichvu/laymau.png"
+  },
+  {
+    "id": 2,
+    "title": "Tiêm thuốc",
+    "price": "150.000 đ",
+    "note": "+ phí mua thuốc (tùy loại)",
+    "image": "images/dichvu/tiemthuoc.png"
+  },
+  {
+    "id": 3,
+    "title": "Truyền nước",
+    "price": "300.000 đ",
+    "note": "+ phí mua thuốc (nếu có)",
+    "image": "images/dichvu/truocnuoc.png"
+  },
+  {
+    "id": 4,
+    "title": "Truyền đạm",
+    "price": "400.000 đ",
+    "note": "+ phí mua thuốc",
+    "image": "images/dichvu/truyendam.png"
+  },
+  {
+    "id": 5,
+    "title": "Đặt ống ăn",
+    "price": "300.000 đ",
+    "note": "+ phí mua ống",
+    "image": "images/dichvu/datongan.png"
+  },
+  {
+    "id": 6,
+    "title": "Đặt ống hút",
+    "price": "300.000 đ",
+    "note": "+ phí mua đồ",
+    "image": "images/dichvu/datonghut.png"
+  },
+  {
+    "id": 7,
+    "title": "Thay băng (vết nhỏ, vết mổ)",
+    "price": "250.000 đ",
+    "note": "Bao gồm vật tư cơ bản",
+    "image": "images/dichvu/thaybangnho.png"
+  },
+  {
+    "id": 8,
+    "title": "Thay băng (vết thương nhiễm, loét)",
+    "price": "300.000 đ",
+    "note": "Có thể phát sinh chi phí xử lý",
+    "image": "images/dichvu/thaybangloet.png"
+  }
+]

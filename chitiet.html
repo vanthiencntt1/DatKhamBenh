@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chi tiết dịch vụ & Đặt khám</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: #f0f4f8;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        min-height: 100vh;
+        box-sizing: border-box;
+      }
+      .container {
+        background: #fff;
+        border-radius: 12px;
+        padding: 30px;
+        max-width: 600px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        box-sizing: border-box;
+      }
+      h2 {
+        color: #2c3e50;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      h3 {
+        color: #2c3e50;
+        margin-bottom: 15px;
+      }
+      img {
+        display: block;
+        margin: 10px auto 20px;
+        border-radius: 10px;
+        max-width: 100%;
+        height: auto;
+      }
+      p {
+        font-size: 1rem;
+        color: #555;
+        line-height: 1.5;
+        margin-bottom: 10px;
+      }
+      hr {
+        margin: 30px 0;
+        border: none;
+        border-top: 2px solid #eee;
+      }
+      label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 6px;
+        color: #2c3e50;
+      }
+      input,
+      textarea,
+      select {
+        width: 100%;
+        padding: 12px;
+        border: 1.5px solid #ccc;
+        border-radius: 8px;
+        margin-bottom: 14px;
+        font-size: 1rem;
+        box-sizing: border-box;
+        transition: border-color 0.3s;
+      }
+      input:focus,
+      textarea:focus,
+      select:focus {
+        outline: none;
+        border-color: #2980b9;
+      }
+      textarea {
+        resize: vertical;
+        min-height: 80px;
+      }
+      button {
+        width: 100%;
+        padding: 14px;
+        background: #2980b9;
+        color: #fff;
+        font-weight: 700;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 1.1rem;
+        transition: background 0.3s;
+        min-height: 48px; /* Touch-friendly for mobile */
+      }
+      button:hover,
+      button:active {
+        background: #1c5980;
+      }
+      .error {
+        color: #e74c3c;
+        font-size: 0.9rem;
+        min-height: 18px;
+        margin-bottom: 10px;
+      }
+
+      /* Media Queries for Responsive Design */
+      @media (max-width: 768px) {
+        body {
+          padding: 10px;
+        }
+        .container {
+          padding: 20px;
+          border-radius: 8px;
+          margin: 0;
+        }
+        h2 {
+          font-size: 1.5rem;
+        }
+        h3 {
+          font-size: 1.2rem;
+        }
+        p {
+          font-size: 0.95rem;
+        }
+        input,
+        textarea,
+        select {
+          padding: 14px;
+          font-size: 16px; /* Prevent zoom on iOS */
+        }
+        button {
+          padding: 16px;
+          font-size: 1rem;
+        }
+        hr {
+          margin: 20px 0;
+        }
+      }
+
+      @media (max-width: 480px) {
+        body {
+          padding: 5px;
+        }
+        .container {
+          padding: 15px;
+        }
+        img {
+          margin: 5px auto 15px;
+        }
+        label {
+          font-size: 0.95rem;
+        }
+      }
+
+      /* Ensure landscape orientation on mobile */
+      @media (max-height: 500px) and (orientation: landscape) {
+        .container {
+          padding: 15px;
+        }
+        input,
+        textarea {
+          padding: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Chi tiết dịch vụ -->
+      <h2 id="serviceTitle"></h2>
+      <img id="serviceImage" alt="Hình ảnh dịch vụ" />
+      <p id="servicePrice"></p>
+      <p id="serviceNote"></p>
+
+      <hr />
+
+      <!-- Form đặt khám -->
+      <h3>Đặt khám dịch vụ này</h3>
+      <form
+        id="bookingForm"
+        action="https://script.google.com/macros/s/AKfycbwo3EMW-rXf_ECCl1xfWaNGluErveiLzFXC_37a7g9HDEjKOPFCjv_ftmKJrkkswDQFLA/exec"
+        method="POST"
+        target="hidden_iframe"
+        onsubmit="return validateForm()"
+      >
+        <input type="hidden" id="service" name="service" />
+
+        <label for="name">Họ tên *</label>
+        <input type="text" id="name" name="name" required />
+        <div id="nameError" class="error"></div>
+
+        <label for="email">Email *</label>
+        <input type="email" id="email" name="email" required />
+        <div id="emailError" class="error"></div>
+
+        <label for="phone">SĐT *</label>
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          required
+          pattern="[0-9]{9,12}"
+          inputmode="tel"
+        />
+        <div id="phoneError" class="error"></div>
+
+        <label for="time">Thời gian *</label>
+        <input type="datetime-local" id="time" name="time" required />
+        <div id="timeError" class="error"></div>
+
+        <label for="note">Nội dung khám</label>
+        <textarea id="note" name="note" rows="3"></textarea>
+
+        <button type="submit">Xác nhận đặt khám</button>
+      </form>
+
+      <iframe
+        name="hidden_iframe"
+        id="hidden_iframe"
+        style="display: none"
+      ></iframe>
+    </div>
+
+    <script>
+      // Lấy ID dịch vụ từ URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const id = urlParams.get("id");
+
+      // Load chi tiết dịch vụ
+      fetch("js/services.json")
+        .then((res) => res.json())
+        .then((services) => {
+          const s = services.find((x) => x.id == id);
+          if (s) {
+            document.getElementById("serviceTitle").innerText = s.title;
+            document.getElementById("serviceImage").src = s.image;
+            document.getElementById("servicePrice").innerText =
+              "Giá: " + s.price;
+            document.getElementById("serviceNote").innerText = s.note;
+            document.getElementById("service").value =
+              s.title + " - " + s.price;
+          } else {
+            document.body.innerHTML =
+              "<p style='text-align: center; padding: 20px;'>Không tìm thấy dịch vụ.</p>";
+          }
+        })
+        .catch((error) => {
+          console.error("Lỗi tải dữ liệu:", error);
+          document.body.innerHTML =
+            "<p style='text-align: center; padding: 20px;'>Lỗi tải dữ liệu dịch vụ.</p>";
+        });
+
+      // Validate form
+      let submitted = false;
+
+      function validateForm() {
+        let valid = true;
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const phone = document.getElementById("phone").value.trim();
+        const time = document.getElementById("time").value;
+
+        // Clear previous errors
+        document
+          .querySelectorAll(".error")
+          .forEach((el) => (el.textContent = ""));
+
+        // Họ tên
+        if (!name) {
+          document.getElementById("nameError").textContent =
+            "Vui lòng nhập họ tên!";
+          valid = false;
+        } else if (!/^[a-zA-ZÀ-ỹ\s]+$/u.test(name)) {
+          document.getElementById("nameError").textContent =
+            "Tên không hợp lệ!";
+          valid = false;
+        }
+
+        // Email
+        if (!email) {
+          document.getElementById("emailError").textContent =
+            "Vui lòng nhập email!";
+          valid = false;
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          document.getElementById("emailError").textContent =
+            "Email không hợp lệ!";
+          valid = false;
+        }
+
+        // SĐT
+        if (!phone) {
+          document.getElementById("phoneError").textContent =
+            "Vui lòng nhập số điện thoại!";
+          valid = false;
+        } else if (!/^[0-9]{9,12}$/.test(phone)) {
+          document.getElementById("phoneError").textContent =
+            "SĐT phải từ 9–12 số!";
+          valid = false;
+        }
+
+        // Thời gian
+        if (!time) {
+          document.getElementById("timeError").textContent =
+            "Vui lòng chọn thời gian!";
+          valid = false;
+        } else if (new Date(time) <= new Date()) {
+          document.getElementById("timeError").textContent =
+            "Phải chọn thời gian trong tương lai!";
+          valid = false;
+        }
+
+        if (valid) submitted = true;
+        return valid;
+      }
+
+      // Khi submit xong
+      document.getElementById("hidden_iframe").addEventListener("load", () => {
+        if (submitted) {
+          alert("✅ Đặt khám thành công! Vui lòng kiểm tra email.");
+          document.getElementById("bookingForm").reset();
+          submitted = false;
+          window.location.href = "/DatKhamBenh/";
+        }
+      });
+    </script>
+  </body>
+</html>
